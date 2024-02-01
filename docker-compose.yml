@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+  scrying:
+    build:
+      context: .
+      dockerfile: ./docker/scrying/Dockerfile
+      args:
+        UID: ${HOST_UID}
+        GID: ${HOST_GID}
+    container_name: scrying
+    hostname: scrying
+    tty: true
+    stdin_open: true
+    volumes:
+      - type: bind
+        source: ./screenshots
+        target: /screenshots
+    security_opt:
+      - seccomp=chrome.json
